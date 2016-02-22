@@ -40,13 +40,34 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
 
         public TextView resumoTextView;
+        public View mainHolder;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            this.mainHolder = itemView.findViewById(R.id.mainHolder);
+            this.mainHolder.setOnClickListener(this);
             this.resumoTextView = (TextView) itemView.findViewById(R.id.resumoTarefa);
         }
+
+        @Override
+        public void onClick(View v) {
+            if(mListner != null){
+                mListner.onItemClick(v,getPosition());
+            }
+        }
+    }
+
+    public OnItemClick mListner;
+
+    public interface OnItemClick{
+        public void onItemClick(View view,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClick listener){
+        this.mListner = listener;
+
     }
 }
