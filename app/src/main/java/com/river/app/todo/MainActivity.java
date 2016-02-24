@@ -1,23 +1,16 @@
 package com.river.app.todo;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.river.app.todo.model.DBData;
 import com.river.app.todo.model.Tarefa;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        ListViewFragment.ListViewFragmentListener {
 
     Toolbar toolbar;
 
@@ -41,13 +34,39 @@ public class MainActivity extends AppCompatActivity {
 
         ListViewFragment listViewFragment = new ListViewFragment();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.main_layout,listViewFragment,"list_view_fragment_key")
-            .commit();
+                    .add(R.id.main_layout, listViewFragment, "list_view_fragment_key")
+                    .commit();
 
         }
     }
 
+    @Override
+    public void onAddEditFABClick() {
+        AddEditFragment fragment = new AddEditFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_layout, fragment)
+                .addToBackStack(null).
+                commit();
+    }
+
+    @Override
+    public void onCardRecyclerViewClick(View view,int position) {
+
+        Tarefa tarefa = DBData.tarefaList().get(position);
+
+        TodoFragmentDetail detailFragment =
+                TodoFragmentDetail.newInstance(tarefa.getCategoria().toString(),
+                        tarefa.getDecricao());
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_layout, detailFragment, "todoDetailFragment")
+                    .addToBackStack(null)
+                    .commit();
+
+
+    }
 }

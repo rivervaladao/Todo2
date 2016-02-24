@@ -25,6 +25,12 @@ public class ListViewFragment extends Fragment {
     private TodoAdapter mAdapter;
     Menu mMenu;
     boolean isListView;
+    private ListViewFragmentListener listener;
+
+    public interface  ListViewFragmentListener{
+        public void onAddEditFABClick();
+        public void onCardRecyclerViewClick(View v, int position);
+    }
 
     public ListViewFragment() {
         // Required empty public constructor
@@ -52,23 +58,7 @@ public class ListViewFragment extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-
-                Tarefa tarefa = DBData.tarefaList().get(position);
-
-                TodoFragmentDetail detailFragment =
-                        TodoFragmentDetail.newInstance(tarefa.getCategoria().toString(),
-                                tarefa.getDecricao());
-
-                if (savedInstanceState == null) {
-
-
-                    FragmentManager fm = getFragmentManager();
-                    fm.beginTransaction()
-                            .replace(R.id.main_layout, detailFragment, "todoDetailFragment")
-                            .addToBackStack(null)
-                            .commit();
-                }
-
+                listener.onCardRecyclerViewClick(view,position);
             }
         };
 
@@ -80,13 +70,11 @@ public class ListViewFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "FAB button clicked", Toast.LENGTH_LONG).show();
+                listener.onAddEditFABClick();
             }
         });
 
         isListView = true;
-
-
         return view;
     }
 
@@ -125,6 +113,12 @@ public class ListViewFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+
+        if(context instanceof ListViewFragmentListener){
+            listener = (ListViewFragmentListener) context;
+        }else {
+            //gera uma execao
+        }
         super.onAttach(context);
 
     }
