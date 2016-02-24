@@ -113,19 +113,18 @@ public class ListViewFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-
+        super.onAttach(context);
         if(context instanceof ListViewFragmentListener){
             listener = (ListViewFragmentListener) context;
         }else {
             //gera uma execao
         }
-        super.onAttach(context);
-
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        listener = null;
     }
 
 }

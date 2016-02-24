@@ -10,6 +10,7 @@ import com.river.app.todo.model.DBData;
 import com.river.app.todo.model.Tarefa;
 
 public class MainActivity extends AppCompatActivity implements
+        AddEditFragment.AddEditFragmentListener,
         ListViewFragment.ListViewFragmentListener {
 
     Toolbar toolbar;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAddEditFABClick() {
         AddEditFragment fragment = new AddEditFragment();
+
+        getSupportActionBar().hide();
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_layout, fragment)
@@ -68,5 +72,12 @@ public class MainActivity extends AppCompatActivity implements
                     .commit();
 
 
+    }
+
+    @Override
+    public void onSaveFABClick() {
+        // removo do back history
+        getSupportFragmentManager().popBackStack();
+        getSupportActionBar().show();
     }
 }
