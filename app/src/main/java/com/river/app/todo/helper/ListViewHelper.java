@@ -1,12 +1,10 @@
-package com.river.app.helper;
+package com.river.app.todo.helper;
 
 import android.content.Context;
 
-import com.river.app.dao.TarefaDao;
-import com.river.app.model.Tarefa;
+import com.river.app.todo.dao.TarefaDao;
+import com.river.app.todo.model.Tarefa;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,14 +12,18 @@ import java.util.List;
  */
 public class ListViewHelper {
 
-    private ListViewHelper(){};
-    private TarefaDao tarefaDao;
     private static Context mContext;
 
-    public static ListViewHelper getInstance(Context context){
+    ;
+    private TarefaDao tarefaDao;
+    private ListViewHelper() {
+    }
+
+    public static ListViewHelper getInstance(Context context) {
         ListViewHelper.mContext = context;
         return new ListViewHelper();
     }
+
     public List<Tarefa> tarefaList() {
         return new TarefaDao(mContext).listarTarefas();
     }

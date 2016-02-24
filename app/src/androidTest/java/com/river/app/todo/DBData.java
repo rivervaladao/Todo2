@@ -1,4 +1,7 @@
-package com.river.app.todo.model;
+package com.river.app.todo;
+
+import com.river.app.todo.model.CategoriaTarefa;
+import com.river.app.todo.model.Tarefa;
 
 import java.util.ArrayList;
 import java.util.Arrays;

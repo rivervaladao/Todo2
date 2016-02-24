@@ -1,5 +1,6 @@
 package com.river.app.todo.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -18,7 +19,12 @@ public class Tarefa {
         this.decricao = decricao;
         this.resumo = resumo;
         this.categoria = categoria;
+        this.quando = Calendar.getInstance().getTime();
 
+    }
+    public  Tarefa(Long id,String resumo,String descricao,String categoria,Date date){
+        this(descricao,resumo,CategoriaTarefa.valueOf(categoria));
+        this.quando = date;
     }
 
     public String getDecricao() {

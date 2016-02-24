@@ -1,12 +1,11 @@
 package com.river.app.todo;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.river.app.todo.model.DBData;
+import com.river.app.todo.helper.ListViewHelper;
 import com.river.app.todo.model.Tarefa;
 
 public class MainActivity extends AppCompatActivity implements
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setElevation(7);
+            getSupportActionBar().setElevation(1);
         }
     }
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onCardRecyclerViewClick(View view,int position) {
 
-        Tarefa tarefa = DBData.tarefaList().get(position);
+        Tarefa tarefa = ListViewHelper.getInstance(this).tarefaList().get(position);
 
         TodoFragmentDetail detailFragment =
                 TodoFragmentDetail.newInstance(tarefa.getCategoria().toString(),

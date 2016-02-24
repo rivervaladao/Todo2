@@ -1,9 +1,8 @@
-package com.river.app.helper;
+package com.river.app.todo.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by cezar on 21/02/16.

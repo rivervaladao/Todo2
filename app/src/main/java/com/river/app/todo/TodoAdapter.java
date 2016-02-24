@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.river.app.todo.model.DBData;
+import com.river.app.todo.helper.ListViewHelper;
 import com.river.app.todo.model.Tarefa;
 
 /**
@@ -30,13 +30,16 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(TodoAdapter.ViewHolder holder, int position) {
-        final Tarefa tarefa = DBData.tarefaList().get(position);
+        final Tarefa tarefa =
+                ListViewHelper.getInstance(mContext).tarefaList().get(position);
         holder.resumoTextView.setText(tarefa.getResumo());
     }
 
     @Override
     public int getItemCount() {
-        return DBData.tarefaList().size();
+
+        return  ListViewHelper.getInstance(mContext).tarefaList().size();
+
     }
 
 

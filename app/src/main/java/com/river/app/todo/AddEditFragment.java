@@ -2,7 +2,6 @@ package com.river.app.todo;
 
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,13 +12,11 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import com.river.app.todo.R;
+import com.river.app.todo.dao.TarefaDao;
 import com.river.app.todo.model.CategoriaTarefa;
-import com.river.app.todo.model.DBData;
 import com.river.app.todo.model.Tarefa;
 
 import java.util.Date;
@@ -123,7 +120,8 @@ public class AddEditFragment extends Fragment {
 
         if (addingNewTask) {
             //save new task
-            DBData.tarefaList().add(tarefa);
+            TarefaDao dao = new TarefaDao(getContext());
+            dao.inserir(tarefa);
             listener.onSaveFABClick();
 
         } else {
