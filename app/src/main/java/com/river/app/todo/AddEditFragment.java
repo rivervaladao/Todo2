@@ -135,16 +135,17 @@ public class AddEditFragment extends Fragment {
         tarefa.setDecricao(descriptionTextInputLayout.getEditText().getText().toString());
         tarefa.setQuando(new Date());
 
-
+        TarefaDao dao = new TarefaDao(getContext());
 
         if (addingNewTask) {
             //save new task
-            TarefaDao dao = new TarefaDao(getContext());
+
             dao.inserir(tarefa);
             listener.onSaveFABClick();
 
         } else {
             //save edit
+            dao.updateTarefa(tarefa);
             listener.onSaveFABClick();;
 
         }

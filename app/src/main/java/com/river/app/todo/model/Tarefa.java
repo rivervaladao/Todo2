@@ -27,6 +27,7 @@ public class Tarefa {
 
     public Tarefa(Long id, String resumo, String descricao, String categoria, Date date) {
         this(descricao, resumo, CategoriaTarefa.valueOf(categoria));
+        this.id = id;
         this.quando = date;
     }
 
