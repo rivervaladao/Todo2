@@ -34,6 +34,8 @@ public class AddEditFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static final String ARG_ID="_ID";
+    public static final String ARG_MODE="novo_ou_edit";
 
     private AddEditFragmentListener listener; // MainActivity
     private boolean addingNewTask = true; // adding (true) or editing
@@ -46,11 +48,21 @@ public class AddEditFragment extends Fragment {
     private AppCompatSpinner categorySpinner;
     private FloatingActionButton saveTaskFAB;
     private CoordinatorLayout coordinatorLayout;
+    private Tarefa tarefa;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         listener = (AddEditFragmentListener) context;
+        Bundle args = getArguments();
+        int mode = args.getInt(ARG_MODE);
+        if(mode == 1){
+            loadData(args.getLong(ARG_ID));
+            addingNewTask = false;
+        }else{
+            addingNewTask = true;
+        }
+        //carraga dados registro selecionado
     }
 
     // remove AddEditFragmentListener when Fragment detached
@@ -103,6 +115,13 @@ public class AddEditFragment extends Fragment {
         descriptionTextInputLayout = (TextInputLayout) view.findViewById(R.id.descriptionTextInputLayout);
 
         dateTextInputLayout = (TextInputLayout) view.findViewById(R.id.dateTextInputLayout);
+        //
+        if(! addingNewTask){
+            resumeTextInputLayout.getEditText().setText(tarefa.getResumo());
+            descriptionTextInputLayout.getEditText().setText(tarefa.getDecricao());
+            dateTextInputLayout.getEditText().setText(tarefa.getQuando().toString());
+            // setting spinner
+        }
 
         return view;
     }
@@ -131,5 +150,8 @@ public class AddEditFragment extends Fragment {
         }
     }
 
-
+    private void loadData(long id){
+        TarefaDao dao = new TarefaDao(getContext());
+        tarefa = dao.buscarTarefaPorId((int) id);
+     }
 }

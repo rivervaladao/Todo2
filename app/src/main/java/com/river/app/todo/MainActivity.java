@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements
         TodoFragmentDetail detailFragment = new TodoFragmentDetail();
         //recuperar dados e colocar no Bundle
         Bundle data = new Bundle();
+        data.putLong(TodoFragmentDetail.ARG_ID, tarefa.getId());
         data.putString(TodoFragmentDetail.ARG_RESUMO, tarefa.getResumo());
         data.putString(TodoFragmentDetail.ARG_DESCRICAO, tarefa.getDecricao());
         data.putString(TodoFragmentDetail.ARG_CATEGORIA, tarefa.getCategoria().toString());
@@ -89,7 +90,14 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onEditTodoDetail() {
+    public void onEditTodoDetail(long tarefaId) {
+
+        //identificar o registro a ser alterado
+        Bundle args = new Bundle();
+        args.putLong(AddEditFragment.ARG_ID,tarefaId);
+        args.putInt(AddEditFragment.ARG_MODE,1);
+
+        //invocar addeditfragment modo edit
 
     }
 

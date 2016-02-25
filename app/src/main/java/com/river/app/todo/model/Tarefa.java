@@ -7,12 +7,14 @@ import java.util.Date;
  * Created by cezar on 22/02/16.
  */
 public class Tarefa {
+    private Long id;
     private String decricao;
     private Date quando;
     private String resumo;
     private CategoriaTarefa categoria;
 
-    public Tarefa() { }
+    public Tarefa() {
+    }
 
     public Tarefa(String decricao, String resumo, CategoriaTarefa categoria) {
         this();
@@ -22,8 +24,9 @@ public class Tarefa {
         this.quando = Calendar.getInstance().getTime();
 
     }
-    public  Tarefa(Long id,String resumo,String descricao,String categoria,Date date){
-        this(descricao,resumo,CategoriaTarefa.valueOf(categoria));
+
+    public Tarefa(Long id, String resumo, String descricao, String categoria, Date date) {
+        this(descricao, resumo, CategoriaTarefa.valueOf(categoria));
         this.quando = date;
     }
 
@@ -57,5 +60,13 @@ public class Tarefa {
 
     public void setCategoria(CategoriaTarefa categoria) {
         this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
