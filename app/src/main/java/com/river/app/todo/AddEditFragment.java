@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
@@ -82,6 +83,8 @@ public class AddEditFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_add_edit, container, false);
 
+        coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.main_layout);
+
         saveTaskFAB = (FloatingActionButton) view.findViewById(R.id.editButton);
         saveTaskFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,22 +130,42 @@ public class AddEditFragment extends Fragment {
 
     private void saveTask() {
 
-        tarefa.setCategoria(CategoriaTarefa.valueOf(selectedCategory));
-        tarefa.setResumo(resumeTextInputLayout.getEditText().getText().toString());
-        tarefa.setDecricao(descriptionTextInputLayout.getEditText().getText().toString());
-        tarefa.setQuando(new Date());
-
         TarefaDao dao = new TarefaDao(getContext());
 
         if (addingNewTask) {
             //save new task
+            Tarefa tarefaNova = new Tarefa();
+            tarefaNova.setCategoria(CategoriaTarefa.valueOf(selectedCategory));
+            tarefaNova.setResumo(resumeTextInputLayout.getEditText().getText().toString());
+            tarefaNova.setDecricao(descriptionTextInputLayout.getEditText().getText().toString());
+            tarefaNova.setQuando(new Date());
 
-            dao.inserir(tarefa);
+
+            long nrecords = dao.inserir(tarefa);
+
+            if(nrecords > 0)
+                Snackbar.make(coordinatorLayout,R.string.task_added,Snackbar.LENGTH_LONG).show();
+            else
+                Snackbar.make(coordinatorLayout,R.string.task_not_added,Snackbar.LENGTH_LONG).show();
+
             listener.onSaveFABClick();
 
         } else {
             //save edit
-            dao.updateTarefa(tarefa);
+            tarefa.setCategoria(CategoriaTarefa.valueOf(selectedCategory));
+            tarefa.setResumo(resumeTextInputLayout.getEditText().getText().toString());
+            tarefa.setDecricao(descriptionTextInputLayout.getEditText().getText().toString());
+            tarefa.setQuando(new Date());
+
+            long nrecords = dao.updateTarefa(tarefa);
+
+            if(nrecords > 0)
+                Snackbar.make(coordinatorLayout,
+                        R.string.task_updated,Snackbar.LENGTH_LONG).show();
+            else
+                Snackbar.make(coordinatorLayout,
+                        R.string.task_not_updated,Snackbar.LENGTH_LONG).show();
+
             listener.onSaveFABClick();;
 
         }

@@ -119,13 +119,17 @@ public class TarefaDao {
     }
 
     public long updateTarefa(Tarefa tarefa) {
+
         ContentValues values = new ContentValues();
+
         values.put(Todo.COLUMN_CATEGORIA,tarefa.getCategoria().toString());
         values.put(Todo.COLUMN_DATA,tarefa.getQuando().getTime());
         values.put(Todo.COLUMN_DESC,tarefa.getDecricao());
         values.put(Todo.COLUMN_RESUMO, tarefa.getResumo());
+
         long recordsUpdated = getDb().update(Todo.TABLE_NAME
                 ,values,Todo.COLUMN_ID+"="+tarefa.getId(),null);
+
         return recordsUpdated;
     }
 }
