@@ -92,23 +92,20 @@ public class AddEditFragment extends Fragment {
 
         categorySpinner = (AppCompatSpinner) view.findViewById(R.id.categorySpinner);
 
-        categorySpinner.setAdapter(
-                new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_spinner_item, CategoriaTarefa.names()));
+        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item
+                , CategoriaTarefa.names());
+
+        categorySpinner.setAdapter(arrayAdapter);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedCategory = (String) parent.getSelectedItem();
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //nothing
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
-
-        //categoryTextInputLayout = (TextInputLayout) view.findViewById(R.id.categoryTextInputLayout);
 
         resumeTextInputLayout = (TextInputLayout) view.findViewById(R.id.resumeTextInputLayout);
 
@@ -121,14 +118,14 @@ public class AddEditFragment extends Fragment {
             descriptionTextInputLayout.getEditText().setText(tarefa.getDecricao());
             dateTextInputLayout.getEditText().setText(tarefa.getQuando().toString());
             // setting spinner
+            int categoryPosition = arrayAdapter.getPosition(tarefa.getCategoria().toString());
+            categorySpinner.setSelection(categoryPosition,true);
         }
 
         return view;
     }
 
     private void saveTask() {
-
-        Tarefa tarefa = new Tarefa();
 
         tarefa.setCategoria(CategoriaTarefa.valueOf(selectedCategory));
         tarefa.setResumo(resumeTextInputLayout.getEditText().getText().toString());
