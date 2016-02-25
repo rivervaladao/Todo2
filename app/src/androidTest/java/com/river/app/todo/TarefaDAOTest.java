@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
+import android.test.suitebuilder.annotation.SmallTest;
 
 import com.river.app.todo.dao.TarefaDao;
 import com.river.app.todo.model.Tarefa;
@@ -20,16 +21,16 @@ import org.junit.runner.RunWith;
  */
 
 @RunWith(AndroidJUnit4.class)
+@SmallTest
 public class TarefaDAOTest {
 
-    Context context;
-    TarefaDao dao;
+
+    private TarefaDao dao;
 
     @Before
-    public void setup() throws Exception {
-        context = new RenamingDelegatingContext(
-                InstrumentationRegistry.getInstrumentation().getContext()
-                , "");
+    public void setUp() throws Exception {
+        Context context = new RenamingDelegatingContext(
+                InstrumentationRegistry.getInstrumentation().getTargetContext(), "test_");
         dao = new TarefaDao(context);
     }
 
@@ -39,8 +40,8 @@ public class TarefaDAOTest {
     }
 
     @Test
-    public void inserir(){
-        for( Tarefa tarefa: DBData.tarefaList()){
+    public void inserir() {
+        for (Tarefa tarefa : DBData.tarefaList()) {
             dao.inserir(tarefa);
         }
         Assert.assertEquals(

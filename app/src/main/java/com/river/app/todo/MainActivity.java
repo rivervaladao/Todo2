@@ -9,6 +9,7 @@ import com.river.app.todo.helper.ListViewHelper;
 import com.river.app.todo.model.Tarefa;
 
 public class MainActivity extends AppCompatActivity implements
+        TodoFragmentDetail.TodoFragmentDetailListener,
         AddEditFragment.AddEditFragmentListener,
         ListViewFragment.ListViewFragmentListener {
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.main_layout, listViewFragment, "list_view_fragment_key")
+                    .add(R.id.fragmentContainer, listViewFragment, "list_view_fragment_key")
                     .commit();
 
         }
@@ -51,24 +52,31 @@ public class MainActivity extends AppCompatActivity implements
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_layout, fragment)
+                .replace(R.id.fragmentContainer, fragment)
                 .addToBackStack(null).
                 commit();
     }
 
     @Override
-    public void onCardRecyclerViewClick(View view,int position) {
+    public void onCardRecyclerViewClick(View view, int position) {
 
         Tarefa tarefa = ListViewHelper.getInstance(this).tarefaList().get(position);
 
-        TodoFragmentDetail detailFragment =
-                TodoFragmentDetail.newInstance(tarefa.getCategoria().toString(),
-                        tarefa.getDecricao());
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_layout, detailFragment, "todoDetailFragment")
-                    .addToBackStack(null)
-                    .commit();
+        TodoFragmentDetail detailFragment = new TodoFragmentDetail();
+        //recuperar dados e colocar no Bundle
+        Bundle data = new Bundle();
+        data.putString(TodoFragmentDetail.ARG_RESUMO, tarefa.getResumo());
+        data.putString(TodoFragmentDetail.ARG_DESCRICAO, tarefa.getDecricao());
+        data.putString(TodoFragmentDetail.ARG_CATEGORIA, tarefa.getCategoria().toString());
+        data.putString(TodoFragmentDetail.ARG_DATA, tarefa.getQuando().toString());
+
+        detailFragment.setArguments(data);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, detailFragment, "todoDetailFragment")
+                .addToBackStack(null)
+                .commit();
 
 
     }
@@ -78,5 +86,15 @@ public class MainActivity extends AppCompatActivity implements
         // removo do back history
         getSupportFragmentManager().popBackStack();
         getSupportActionBar().show();
+    }
+
+    @Override
+    public void onEditTodoDetail() {
+
+    }
+
+    @Override
+    public void onRemoveTodoDetail() {
+
     }
 }

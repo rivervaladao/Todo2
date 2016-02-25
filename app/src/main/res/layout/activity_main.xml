@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
@@ -18,4 +19,5 @@
         android:background="@color/primary_dark"
         android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-</RelativeLayout>
+    <include layout="@layout/content_main" />
+</android.support.design.widget.CoordinatorLayout>

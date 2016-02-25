@@ -10,27 +10,27 @@
     android:orderInCategory="100"
     android:title="Show as grid" />
 
-
-  <item
-      android:title="never"
-      android:orderInCategory="2"
-      android:icon="@drawable/ic_camera_front_24dp"
-      app:showAsAction="ifRoom"/>
     <!--
-      <item
-          android:title="collapseActionView"
-          android:orderInCategory="3"
-          app:showAsAction="collapseActionView"/>
+   <item
+       android:title="never"
+       android:orderInCategory="2"
+       android:icon="@drawable/ic_camera_front_24dp"
+       app:showAsAction="ifRoom"/>
 
-      <item
-          android:title="ifRoom"
-          android:orderInCategory="4"
-          app:showAsAction="ifRoom"/>
+       <item
+           android:title="collapseActionView"
+           android:orderInCategory="3"
+           app:showAsAction="collapseActionView"/>
 
-      <item
-          android:title="withText"
-          android:orderInCategory="5"
-          app:showAsAction="withText"/>
-    -->
+       <item
+           android:title="ifRoom"
+           android:orderInCategory="4"
+           app:showAsAction="ifRoom"/>
+
+       <item
+           android:title="withText"
+           android:orderInCategory="5"
+           app:showAsAction="withText"/>
+     -->
 
 </menu>
